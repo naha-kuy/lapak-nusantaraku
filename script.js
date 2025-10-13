@@ -316,7 +316,7 @@ function showAddToCartMessage(itemName) {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: linear-gradient(135deg, #4CAF50, #45a049);
+        background: linear-gradient(135deg, #ffbf00, #45a049);
         color: white;
         padding: 15px 20px;
         border-radius: 25px;
