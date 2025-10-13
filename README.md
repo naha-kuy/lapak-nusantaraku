@@ -2,7 +2,9 @@
 
 **Lapak Nusantara** adalah website demo pemesanan makanan yang berfokus pada hidangan _Nasi Bakar Nusantara_. Proyek ini dikembangkan secara murni menggunakan **Vanilla Stack (HTML, Vanilla CSS, dan Vanilla JavaScript)**, menjadikannya ringan, cepat, dan mudah dipelajari implementasi fungsionalitasnya.
 
-**Fitur Esensial & Unik**
+---
+
+## **Fitur Esensial & Unik**
 1. CRUD Client-Side Murni:
 - Sistem pemesanan (CRUD) sepenuhnya dikelola oleh JavaScript Murni (tanpa framework) dan data disimpan sementara pada Local Storage browser.
 2. Integrasi WhatsApp Otomatis:
@@ -15,4 +17,4 @@
 - File styles.css telah diaudit dan direfaktorisasi untuk efisiensi maksimal dan clean code.
 - Penggunaan struktur semantik (<header>, <main>, <footer>). 
 
-**Status Proyek**: _Client-Side Demo Fungsional_ (Tamu Web). Menyediakan opsi pembayaran statis (COD, Shopeepay, Gopay).
+## **Status Proyek**: _Client-Side Demo Fungsional_ (Tamu Web). Menyediakan opsi pembayaran statis (COD, Shopeepay, Gopay).
