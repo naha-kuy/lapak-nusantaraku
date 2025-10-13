@@ -51,7 +51,7 @@
   --shadow-xl: 0 25px 60px rgba(0,0,0,0.3);
   
   /* Typography */
-  --font-family: 'Comic Sans MS', cursive, sans-serif;
+  --font-family: 'Poppins', 'Segoe UI', Arial, sans-serif;
   --font-size-sm: 0.9rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.1rem;
