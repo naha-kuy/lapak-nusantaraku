@@ -157,6 +157,23 @@ function toggleCartModal() {
     }
 }
 
+// Function to clear all items from cart
+function clearCart() {
+    if (cart.length === 0) {
+        showAddToCartMessage('Keranjang sudah kosong! 🛒');
+        return;
+    }
+
+    // Show confirmation dialog with cute styling
+    const confirmClear = confirm('🗑️ Yakin ingin menghapus semua pesanan dari keranjang?');
+    if (confirmClear) {
+        cart = [];
+        saveCart();
+        updateCartDisplay();
+        showAddToCartMessage('Semua pesanan telah dihapus! 🗑️');
+    }
+}
+
 // Function to handle checkout
 function handleCheckout() {
     if (cart.length === 0) {
@@ -232,6 +249,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeCartBtn = document.getElementById('close-cart');
     if (closeCartBtn) {
         closeCartBtn.addEventListener('click', toggleCartModal);
+    }
+
+    // Clear cart button
+    const clearCartBtn = document.getElementById('clear-cart-btn');
+    if (clearCartBtn) {
+        clearCartBtn.addEventListener('click', clearCart);
     }
 
     // Checkout button
