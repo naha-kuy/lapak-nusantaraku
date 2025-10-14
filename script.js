@@ -157,23 +157,6 @@ function toggleCartModal() {
     }
 }
 
-// Function to clear all items from cart
-function clearCart() {
-    if (cart.length === 0) {
-        showAddToCartMessage('Keranjang sudah kosong! 🛒');
-        return;
-    }
-
-    // Show confirmation dialog with cute styling
-    const confirmClear = confirm('🗑️ Yakin ingin menghapus semua pesanan dari keranjang?');
-    if (confirmClear) {
-        cart = [];
-        saveCart();
-        updateCartDisplay();
-        showAddToCartMessage('Semua pesanan telah dihapus! 🗑️');
-    }
-}
-
 // Function to handle checkout
 function handleCheckout() {
     if (cart.length === 0) {
@@ -206,7 +189,7 @@ function generateWhatsAppMessage(formData) {
 // Function to send WhatsApp message
 function sendWhatsAppMessage(formData) {
     const message = generateWhatsAppMessage(formData);
-    const whatsappUrl = `https://wa.me/6285608934919?text=${message}`;
+    const whatsappUrl = `https://wa.me/6282334157792?text=${message}`;
     window.open(whatsappUrl, '_blank');
     
     // Clear cart after sending order
@@ -249,12 +232,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const closeCartBtn = document.getElementById('close-cart');
     if (closeCartBtn) {
         closeCartBtn.addEventListener('click', toggleCartModal);
-    }
-
-    // Clear cart button
-    const clearCartBtn = document.getElementById('clear-cart-btn');
-    if (clearCartBtn) {
-        clearCartBtn.addEventListener('click', clearCart);
     }
 
     // Checkout button
@@ -339,7 +316,7 @@ function showAddToCartMessage(itemName) {
         position: fixed;
         top: 20px;
         right: 20px;
-        background: linear-gradient(135deg, #ffbf00, #45a049);
+        background: linear-gradient(135deg, #4CAF50, #45a049);
         color: white;
         padding: 15px 20px;
         border-radius: 25px;
