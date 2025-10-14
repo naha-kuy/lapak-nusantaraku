@@ -1,6 +1,6 @@
 # **Lapak Nusantara - Demo Pemesanan Makanan Sederhana**
 
-**Lapak Nusantara** adalah website demo pemesanan makanan yang berfokus pada hidangan _Nasi Bakar Nusantara_. Proyek ini dikembangkan secara murni menggunakan **Vanilla Stack (HTML, Vanilla CSS, dan Vanilla JavaScript)**, menjadikannya ringan, cepat, dan mudah dipelajari implementasi fungsionalitasnya.
+**Lapak Nusantara** adalah website demo pemesanan makanan yang berfokus pada hidangan _Nasi Bakar Nusantara_. Proyek ini dikembangkan secara murni menggunakan **HTML, CSS, dan JavaScript**, menjadikannya ringan, cepat, dan mudah dipelajari implementasi fungsionalitasnya.
 
 ---
 
