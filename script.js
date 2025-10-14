@@ -234,6 +234,19 @@ document.addEventListener('DOMContentLoaded', function() {
         closeCartBtn.addEventListener('click', toggleCartModal);
     }
 
+    // Clear all cart items
+    const clearCartBtn = document.getElementById('clear-cart-btn');
+    if (clearCartBtn) {
+        clearCartBtn.addEventListener('click', function() {
+            if (confirm('Apakah Anda yakin ingin menghapus semua pesanan?')) {
+                cart = [];
+                saveCart();
+                updateCartDisplay();
+                toggleCartModal(); // Close modal after clearing
+            }
+        });
+    }
+
     // Checkout button
     const checkoutBtn = document.getElementById('checkout-btn');
     if (checkoutBtn) {
