@@ -1451,7 +1451,7 @@ footer {
 
   /* Menu page */
   .menu-items {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: 1fr;
     gap: var(--space-xxl);
     padding: 0 var(--space-lg);
   }
@@ -1523,10 +1523,10 @@ footer {
 
   /* Cart */
   .cart-icon-container {
-    top: 50%;
+    top: 100%;
     right: var(--space-xxl);
-    transform: translateY(-50%);
-    z-index: 1001;
+    transform: translateY(50%);
+    z-index: 1000;
   }
 
   .cart-icon {
