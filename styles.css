@@ -51,7 +51,7 @@
   --shadow-xl: 0 25px 60px rgba(0,0,0,0.3);
   
   /* Typography */
-  --font-family: 'Comic Sans MS', cursive, sans-serif;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   --font-size-sm: 0.9rem;
   --font-size-base: 1rem;
   --font-size-lg: 1.1rem;
@@ -735,6 +735,34 @@ footer {
   overflow-y: auto;
   position: relative;
   border: 2px solid var(--primary-yellow);
+}
+
+.cart-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-lg);
+}
+
+#clear-cart-btn {
+  background: linear-gradient(135deg, var(--red) 0%, var(--dark-red) 100%);
+  color: var(--white);
+  border: none;
+  padding: var(--space-md) var(--space-lg);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(244, 67, 54, 0.3);
+  border: 2px solid var(--dark-red);
+}
+
+#clear-cart-btn:hover {
+  background: linear-gradient(135deg, var(--dark-red) 0%, #b71c1c 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(244, 67, 54, 0.4);
 }
 
 #close-cart {
