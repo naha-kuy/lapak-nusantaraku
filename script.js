@@ -1,7 +1,7 @@
 // Menu items definition
 const menuItems = [
     { name: 'Risol', price: 4000, image: 'image/risol.jpg', description: 'Risol renyah yang dibuat khusus dengan cita rasa yang lezat. Hadir dengan dua pilihan isian premium: Pisang Cokelat/Keju yang manis dan gurih, atau Beef dan Saus Mayo yang kaya rasa dan cocok dijadikan lauk maupun camilan ringan.' },
-    { name: 'Nasi Bakar + Tahu/Tempe', price: 12000, image: 'image/nasi ayam.png', description: 'Nikmati Nasi Bakar Autentik dengan aroma daun pisang yang khas, menjanjikan rasa yang lezat, praktis, dan pasti mengenyangkan. Anda dapat memilih isian favorit dari varian spesial kami: Ayam Suwir, Ikan Teri, atau Ikan Tuna.' },
+    { name: 'Nasi Bakar & Tahu/Tempe', price: 12000, image: 'image/nasi ayam.png', description: 'Nikmati Nasi Bakar Autentik dengan aroma daun pisang yang khas, menjanjikan rasa yang lezat, praktis, dan pasti mengenyangkan. Anda dapat memilih isian favorit dari varian spesial kami: Ayam Suwir, Ikan Teri, atau Ikan Tuna.' },
     { name: 'Es Teh', price: 4000, image: 'image/es teh.png', description: 'Es Teh yang diracik dari daun teh pilihan. Menghadirkan rasa manis yang pas dan sensasi kesegaran maksimal yang sangat cocok dinikmati untuk menemani hari-hari Anda.' },
     { name: 'Paket Hemat 12k', price: 12000, image: 'image/2 menu.png', description: 'Ini adalah paket hemat dengan kombinasi menu pilihan yang menawarkan harga sangat terjangkau. Paket ini berisi Es Teh dan Nasi Bakar (Anda bebas memilih isian: Ayam Suwir, Ikan Teri, atau Ikan Tuna).' },
     { name: 'Paket Hemat 15k', price: 15000, image: 'image/3 menu.png', description: 'Nikmati Paket Hemat 15K kami yang merupakan kombinasi sempurna dari hidangan autentik Lapak Nusantara. Setiap paket berisi Nasi Bakar (Anda bebas memilih isian: Ayam Suwir, Ikan Teri, atau Ikan Tuna) ditambah Es Teh segar dan Risol (Anda juga bebas memilih isian: Pisang Cokelat/Keju atau Beef dan Saus Mayo). Kami menjamin cita rasa autentik, karena setiap hidangan diracik dengan penuh kasih sayang menggunakan bahan-bahan berkualitas tinggi.' },
@@ -42,7 +42,7 @@ function generateMenuItems() {
             <p>Rp ${item.price.toLocaleString()}</p>
             <div class="menu-item-buttons">
                 <button class="description-btn" onclick="showDescription('${item.name}', '${item.description.replace(/'/g, "\\'")}', '${item.image}')">🔍 Keterangan Produk</button>
-                <button class="add-to-cart" data-item="${item.name}" data-price="${item.price}">🛒 Tambah ke Keranjang</button>
+                <button class="add-to-cart" data-item="${item.name}" data-price="${item.price}">🛒 Tambahkan pesanan</button>
             </div>
         `;
         menuContainer.appendChild(menuItemDiv);
