@@ -1,8 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Checkout pesanan Lapak Nusantara - Lengkapi data pengiriman dan pilih metode pembayaran. Gratis ongkir di sekitar UM Malang." />
+    <meta name="keywords" content="checkout pesanan, pembayaran nasi bakar, pengantaran makanan, COD, Shopeepay, Gopay" />
+    <meta name="author" content="Lapak Nusantara" />
     <title>LAPAK NUSANTARA - Checkout</title>
     <link rel="stylesheet" href="styles.css">
 </head>
@@ -34,32 +37,37 @@
                     <form id="checkout-form">
                         <div class="form-group">
                             <label for="name">👤 Nama Pelanggan:</label>
-                            <input type="text" id="name" placeholder="Masukkan nama lengkap Anda" required>
+                            <input type="text" id="name" placeholder="Masukkan nama lengkap Anda" required aria-describedby="name-error" minlength="2" maxlength="50">
+                            <div id="name-error" class="error-message" role="alert"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="whatsapp">📱 Nomor WhatsApp:</label>
-                            <input type="tel" id="whatsapp" placeholder="08xxxxxxxxxx" pattern="[0-9]+" title="Hanya angka yang diperbolehkan" required>
+                            <input type="tel" id="whatsapp" placeholder="08xxxxxxxxxx" pattern="[0-9]+" title="Hanya angka yang diperbolehkan" required aria-describedby="whatsapp-error" minlength="10" maxlength="15">
+                            <div id="whatsapp-error" class="error-message" role="alert"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="address">🏠 Alamat Pengantaran:</label>
-                            <textarea id="address" placeholder="Masukkan alamat lengkap untuk pengantaran" required></textarea>
+                            <textarea id="address" placeholder="Masukkan alamat lengkap untuk pengantaran" required aria-describedby="address-error" minlength="1" maxlength="200"></textarea>
+                            <div id="address-error" class="error-message" role="alert"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="notes">📋 Catatan Khusus:</label>
-                            <textarea id="notes" placeholder="Tambahkan catatan khusus (opsional)"></textarea>
+                            <textarea id="notes" placeholder="Tambahkan catatan khusus (opsional)" aria-describedby="notes-error" maxlength="100"></textarea>
+                            <div id="notes-error" class="error-message" role="alert"></div>
                         </div>
 
                         <div class="form-group">
                             <label for="payment">💳 Metode Pembayaran:</label>
-                            <select id="payment" required>
+                            <select id="payment" required aria-describedby="payment-error">
                                 <option value="">Pilih Metode Pembayaran</option>
                                 <option value="COD">💵 COD (Tunai Langsung)</option>
                                 <option value="Shopeepay">🟠 Shopeepay</option>
                                 <option value="Gopay">🟢 Gopay</option>
                             </select>
+                            <div id="payment-error" class="error-message" role="alert"></div>
                         </div>
 
                         <div class="checkout-actions">
@@ -97,7 +105,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2025 LAPAK NUSANTARA</p>
+        <p>&copy; 2025 LAPAK NUSANTARA. Citarasa Lokal, Yang Tak Terlupakan.</p>
     </footer>
 
     <script src="script.js"></script>
