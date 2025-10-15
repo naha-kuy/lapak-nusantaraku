@@ -1,10 +1,40 @@
-// Menu items definition
+// Menu items definition with enhanced data structure
 const menuItems = [
-    { name: 'Risol', price: 4000, image: 'image/risol.jpg', description: 'Risol renyah yang dibuat khusus dengan cita rasa yang lezat. Hadir dengan dua pilihan isian premium: Pisang Cokelat/Keju yang manis dan gurih, atau Beef dan Saus Mayo yang kaya rasa dan cocok dijadikan lauk maupun camilan ringan.' },
-    { name: 'Nasi Bakar & Tahu/Tempe', price: 12000, image: 'image/nasi ayam.png', description: 'Nikmati Nasi Bakar Autentik dengan aroma daun pisang yang khas, menjanjikan rasa yang lezat, praktis, dan pasti mengenyangkan. Anda dapat memilih isian favorit dari varian spesial kami: Ayam Suwir, Ikan Teri, atau Ikan Tuna.' },
-    { name: 'Es Teh', price: 4000, image: 'image/es teh.png', description: 'Es Teh yang diracik dari daun teh pilihan. Menghadirkan rasa manis yang pas dan sensasi kesegaran maksimal yang sangat cocok dinikmati untuk menemani hari-hari Anda.' },
-    { name: 'Paket Hemat 12k', price: 12000, image: 'image/2 menu.png', description: 'Ini adalah paket hemat dengan kombinasi menu pilihan yang menawarkan harga sangat terjangkau. Paket ini berisi Es Teh dan Nasi Bakar (Anda bebas memilih isian: Ayam Suwir, Ikan Teri, atau Ikan Tuna).' },
-    { name: 'Paket Hemat 15k', price: 15000, image: 'image/3 menu.png', description: 'Nikmati Paket Hemat 15K kami yang merupakan kombinasi sempurna dari hidangan autentik Lapak Nusantara. Setiap paket berisi Nasi Bakar (Anda bebas memilih isian: Ayam Suwir, Ikan Teri, atau Ikan Tuna) ditambah Es Teh segar dan Risol (Anda juga bebas memilih isian: Pisang Cokelat/Keju atau Beef dan Saus Mayo). Kami menjamin cita rasa autentik, karena setiap hidangan diracik dengan penuh kasih sayang menggunakan bahan-bahan berkualitas tinggi.' },
+    {
+        name: 'Risol',
+        price: 4000,
+        image: 'image/risol.jpg',
+        description: 'Risol renyah yang dibuat khusus dengan cita rasa yang lezat. Hadir dengan dua pilihan isian premium: Pisang Cokelat/Keju yang manis dan gurih, atau Beef dan Saus Mayo yang kaya rasa dan cocok dijadikan lauk maupun camilan ringan.',
+        category: 'snack'
+    },
+    {
+        name: 'Nasi Bakar + Tahu/Tempe',
+        price: 12000,
+        image: 'image/nasi ayam.png',
+        description: 'Nikmati Nasi Bakar Autentik dengan aroma daun pisang yang khas, menjanjikan rasa yang lezat, praktis, dan pasti mengenyangkan. Anda dapat memilih isian favorit dari varian spesial kami: Ayam Suwir, Ikan Teri, atau Ikan Tuna.',
+        category: 'main'
+    },
+    {
+        name: 'Es Teh',
+        price: 4000,
+        image: 'image/es teh.png',
+        description: 'Es Teh yang diracik dari daun teh pilihan. Menghadirkan rasa manis yang pas dan sensasi kesegaran maksimal yang sangat cocok dinikmati untuk menemani hari-hari Anda.',
+        category: 'drink'
+    },
+    {
+        name: 'Paket Hemat 12k',
+        price: 12000,
+        image: 'image/2 menu.png',
+        description: 'Ini adalah paket hemat dengan kombinasi menu pilihan yang menawarkan harga sangat terjangkau. Paket ini berisi Es Teh dan Nasi Bakar (Anda bebas memilih isian: Ayam Suwir, Ikan Teri, atau Ikan Tuna).',
+        category: 'package'
+    },
+    {
+        name: 'Paket Hemat 15k',
+        price: 15000,
+        image: 'image/3 menu.png',
+        description: 'Nikmati Paket Hemat 15K kami yang merupakan kombinasi sempurna dari hidangan autentik Lapak Nusantara. Setiap paket berisi Nasi Bakar (Anda bebas memilih isian: Ayam Suwir, Ikan Teri, atau Ikan Tuna) ditambah Es Teh segar dan Risol (Anda juga bebas memilih isian: Pisang Cokelat/Keju atau Beef dan Saus Mayo). Kami menjamin cita rasa autentik, karena setiap hidangan diracik dengan penuh kasih sayang menggunakan bahan-bahan berkualitas tinggi.',
+        category: 'package'
+    },
 ];
 
 // Cart functionality using Local Storage
@@ -15,16 +45,27 @@ function saveCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
-// Function to add item to cart
+// Function to add item to cart with error handling
 function addToCart(item, price) {
-    const existingItem = cart.find(cartItem => cartItem.item === item);
-    if (existingItem) {
-        existingItem.quantity += 1;
-    } else {
-        cart.push({ item, price: parseInt(price), quantity: 1 });
+    try {
+        if (!item || !price || isNaN(price) || price <= 0) {
+            console.error('Invalid item or price:', { item, price });
+            showAddToCartMessage('Terjadi kesalahan saat menambah item ke keranjang');
+            return;
+        }
+
+        const existingItem = cart.find(cartItem => cartItem.item === item);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ item, price: parseInt(price), quantity: 1 });
+        }
+        saveCart();
+        updateCartDisplay();
+    } catch (error) {
+        console.error('Error adding item to cart:', error);
+        showAddToCartMessage('Terjadi kesalahan saat menambah item ke keranjang');
     }
-    saveCart();
-    updateCartDisplay();
 }
 
 // Function to generate menu items
@@ -42,7 +83,7 @@ function generateMenuItems() {
             <p>Rp ${item.price.toLocaleString()}</p>
             <div class="menu-item-buttons">
                 <button class="description-btn" onclick="showDescription('${item.name}', '${item.description.replace(/'/g, "\\'")}', '${item.image}')">🔍 Keterangan Produk</button>
-                <button class="add-to-cart" data-item="${item.name}" data-price="${item.price}">🛒 Tambahkan pesanan</button>
+                <button class="add-to-cart" data-item="${item.name}" data-price="${item.price}">🛒 Tambah ke Keranjang</button>
             </div>
         `;
         menuContainer.appendChild(menuItemDiv);
@@ -118,14 +159,29 @@ function updateCartDisplay() {
     updateCartIcon();
 }
 
-// Function to change quantity
+// Function to change quantity with validation
 function changeQuantity(index, change) {
-    cart[index].quantity += change;
-    if (cart[index].quantity <= 0) {
-        cart.splice(index, 1);
+    try {
+        if (index < 0 || index >= cart.length) {
+            console.error('Invalid cart index:', index);
+            return;
+        }
+
+        if (!Number.isInteger(change) || change === 0) {
+            console.error('Invalid quantity change:', change);
+            return;
+        }
+
+        cart[index].quantity += change;
+        if (cart[index].quantity <= 0) {
+            cart.splice(index, 1);
+        }
+        saveCart();
+        updateCartDisplay();
+    } catch (error) {
+        console.error('Error changing quantity:', error);
+        showAddToCartMessage('Terjadi kesalahan saat mengubah jumlah');
     }
-    saveCart();
-    updateCartDisplay();
 }
 
 // Function to update cart icon
@@ -157,44 +213,159 @@ function toggleCartModal() {
     }
 }
 
-// Function to handle checkout
-function handleCheckout() {
-    if (cart.length === 0) {
-        alert('Keranjang kosong. Silakan kembali ke halaman menu untuk menambahkan item pesanan terlebih dahulu.');
-        return;
+// Function to clear all items from cart with better UX
+function clearCart() {
+    try {
+        if (!cart || cart.length === 0) {
+            showAddToCartMessage('Keranjang sudah kosong! 🛒');
+            return;
+        }
+
+        // Show confirmation dialog with better messaging
+        const confirmClear = confirm('🗑️ Yakin ingin menghapus semua pesanan dari keranjang? Tindakan ini tidak dapat dibatalkan.');
+        if (confirmClear) {
+            cart = [];
+            saveCart();
+            updateCartDisplay();
+            showAddToCartMessage('Semua pesanan telah dihapus! 🗑️');
+        }
+    } catch (error) {
+        console.error('Error clearing cart:', error);
+        showAddToCartMessage('Terjadi kesalahan saat menghapus keranjang', true);
     }
-    window.location.href = 'checkout.html';
 }
 
-// Function to generate WhatsApp message with new template
+// Function to handle checkout with validation
+function handleCheckout() {
+    try {
+        if (!cart || cart.length === 0) {
+            alert('Keranjang kosong. Silakan kembali ke halaman menu untuk menambahkan item pesanan terlebih dahulu.');
+            return;
+        }
+
+        // Validate cart items
+        const invalidItems = cart.filter(item =>
+            !item.item || !item.price || item.quantity <= 0
+        );
+
+        if (invalidItems.length > 0) {
+            console.error('Invalid cart items found:', invalidItems);
+            alert('Ada item tidak valid di keranjang. Silakan refresh halaman dan coba lagi.');
+            return;
+        }
+
+        window.location.href = 'checkout.html';
+    } catch (error) {
+        console.error('Error during checkout:', error);
+        alert('Terjadi kesalahan saat memproses checkout. Silakan coba lagi.');
+    }
+}
+
+// Function to generate WhatsApp message with improved formatting and line breaks
 function generateWhatsAppMessage(formData) {
-    // Calculate total
-    let total = 0;
-    cart.forEach(item => {
-        total += item.price * item.quantity;
-    });
+    try {
+        if (!formData || !cart || cart.length === 0) {
+            throw new Error('Invalid form data or empty cart');
+        }
 
-    // Build item list
-    let itemList = '';
-    cart.forEach(item => {
-        itemList += `- ${item.item} (${item.quantity}x) - Rp ${item.price.toLocaleString()}%0A`;
-    });
+        // Calculate total with validation
+        let total = 0;
+        cart.forEach(item => {
+            if (item.price && item.quantity) {
+                total += item.price * item.quantity;
+            }
+        });
 
-    // Create the message with proper URL encoding
-    let message = `*Halo kak ${formData.name}!* Terima kasih banyak sudah pesan di Lapak Nusantara! Pesanan kamu sudah kami catat dengan semangat. %0A%0ABerikut rincian pesanan yang akan kami siapkan:%0A--------------------------------------------------%0A> *DETAIL PESANAN*%0A${itemList}--------------------------------------------------%0A*TOTAL AKHIR:* Rp ${total.toLocaleString('id-ID')}%0A--------------------------------------------------%0A%0A> *INFO PENGIRIMAN*%0ANama: ${formData.name}%0ANomor WA: ${formData.whatsapp}%0AAlamat: ${formData.address}%0AMetode Bayar: *${formData.payment}*%0ACatatan Khusus: ${formData.notes || 'Tidak ada'}%0A%0AMohon ditunggu sebentar ya Kak, kami sedang menyiapkan hidangan terbaik untukmu. Kami akan segera konfirmasi setelah pesanan siap dijemput/dikirim!%0A--------------------------------------------------%0A*Citarasa Lokal, Yang Tak Terlupakan!*`
-    
-    return message;
+        if (total <= 0) {
+            throw new Error('Invalid total amount');
+        }
+
+        // Build item list with proper formatting
+        let itemList = '';
+        cart.forEach(item => {
+            if (item.item && item.price && item.quantity) {
+                itemList += `- ${item.item} (${item.quantity}x) - Rp ${item.price.toLocaleString('id-ID')}\n`;
+            }
+        });
+
+        if (!itemList.trim()) {
+            throw new Error('No valid items in cart');
+        }
+
+        // Create the message with proper WhatsApp formatting
+        const message = `*LAPAK NUSANTARA - PESANAN BARU*
+
+*Halo Kak ${formData.name}!*
+Terima kasih banyak sudah pesan di Lapak Nusantara! Pesanan kamu sudah kami catat ya, berikut detail pesananmu:
+
+
+> *DETAIL PESANAN*
+${itemList}
+━━━━━━━━━━━━━━━━
+*TOTAL PEMBAYARAN:* Rp ${total.toLocaleString('id-ID')}
+━━━━━━━━━━━━━━━━
+
+> *INFORMASI PENGIRIMAN*
+*Nama:* ${formData.name}
+*Nomor WA:* ${formData.whatsapp}
+*Alamat Pengantaran:* ${formData.address}
+*Metode Bayar:* ${formData.payment}
+*Catatan:* ${formData.notes || 'Tidak ada'}
+
+━━━━━━━━━━━━━━━━━━━━━━
+*Mohon ditunggu sebentar ya Kak!*
+Kami sedang menyiapkan hidangan terbaik. Kami akan segera konfirmasi setelah pesanan siap diantar/dijemput!
+
+*Citarasa Lokal, Yang Tak Terlupakan!*
+━━━━━━━━━━━━━━━━`;
+
+        return message;
+    } catch (error) {
+        console.error('Error generating WhatsApp message:', error);
+        return null;
+    }
 }
 
-// Function to send WhatsApp message
+// Function to send WhatsApp message with improved error handling and user feedback
 function sendWhatsAppMessage(formData) {
-    const message = generateWhatsAppMessage(formData);
-    const whatsappUrl = `https://wa.me/6285608934919?text=${message}`;
-    window.open(whatsappUrl, '_blank');
-    
-    // Clear cart after sending order
-    cart = [];
-    saveCart();
+    try {
+        if (!formData || typeof formData !== 'object') {
+            throw new Error('Invalid form data provided');
+        }
+
+        const message = generateWhatsAppMessage(formData);
+        if (!message) {
+            throw new Error('Failed to generate WhatsApp message');
+        }
+
+        // Use proper URL encoding for WhatsApp
+        const whatsappUrl = `https://wa.me/6285608934919?text=${encodeURIComponent(message)}`;
+
+        console.log('Generated WhatsApp URL:', whatsappUrl); // For debugging
+
+        // Open WhatsApp in new tab
+        const whatsappWindow = window.open(whatsappUrl, '_blank');
+
+        if (!whatsappWindow) {
+            alert('Popup blocker mungkin aktif. Silakan izinkan popup untuk website ini dan coba lagi.');
+            return;
+        }
+
+        // Show success message before clearing cart
+        showAddToCartMessage('✅ Pesanan berhasil dikirim via WhatsApp!');
+
+        // Clear cart after a short delay to allow user to see the success message
+        setTimeout(() => {
+            cart = [];
+            saveCart();
+            updateCartDisplay();
+        }, 2000);
+
+        console.log('Order sent successfully via WhatsApp');
+    } catch (error) {
+        console.error('Error sending WhatsApp message:', error);
+        showAddToCartMessage('❌ Terjadi kesalahan saat mengirim pesanan. Silakan coba lagi.', true);
+    }
 }
 
 // Event listeners
@@ -208,7 +379,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const item = e.target.getAttribute('data-item');
             const price = e.target.getAttribute('data-price');
             addToCart(item, price);
-            
+
             // Add cute animation feedback
             e.target.style.transform = 'scale(0.95)';
             e.target.style.background = '#45a049';
@@ -216,9 +387,9 @@ document.addEventListener('DOMContentLoaded', function() {
                 e.target.style.transform = 'scale(1)';
                 e.target.style.background = '#4CAF50';
             }, 150);
-            
-            // Show success message
-            showAddToCartMessage(item);
+
+            // Show success message with item name
+            showAddToCartMessage(`${item} sudah ditambahkan ke keranjang`);
         }
     });
 
@@ -234,17 +405,10 @@ document.addEventListener('DOMContentLoaded', function() {
         closeCartBtn.addEventListener('click', toggleCartModal);
     }
 
-    // Clear all cart items
+    // Clear cart button
     const clearCartBtn = document.getElementById('clear-cart-btn');
     if (clearCartBtn) {
-        clearCartBtn.addEventListener('click', function() {
-            if (confirm('Apakah Anda yakin ingin menghapus semua pesanan?')) {
-                cart = [];
-                saveCart();
-                updateCartDisplay();
-                toggleCartModal(); // Close modal after clearing
-            }
-        });
+        clearCartBtn.addEventListener('click', clearCart);
     }
 
     // Checkout button
@@ -287,34 +451,79 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Checkout form
+    // Checkout form with enhanced validation
     const checkoutForm = document.getElementById('checkout-form');
     if (checkoutForm) {
         checkoutForm.addEventListener('submit', function(e) {
             e.preventDefault();
-            
-            // Additional validation for WhatsApp number
-            const whatsappValue = document.getElementById('whatsapp').value;
-            if (!/^[0-9]+$/.test(whatsappValue)) {
-                alert('Nomor WhatsApp harus berupa angka saja tanpa karakter lain!');
-                return;
+
+            try {
+                // Get form elements
+                const nameInput = document.getElementById('name');
+                const whatsappInput = document.getElementById('whatsapp');
+                const addressInput = document.getElementById('address');
+                const paymentInput = document.getElementById('payment');
+
+                if (!nameInput || !whatsappInput || !addressInput || !paymentInput) {
+                    alert('Form tidak lengkap. Silakan refresh halaman dan coba lagi.');
+                    return;
+                }
+
+                const name = nameInput.value.trim();
+                const whatsappValue = whatsappInput.value.trim();
+                const address = addressInput.value.trim();
+                const payment = paymentInput.value;
+
+                // Validation
+                if (!name || name.length < 2) {
+                    alert('Nama harus diisi minimal 2 karakter!');
+                    nameInput.focus();
+                    return;
+                }
+
+                if (!whatsappValue || !/^[0-9]+$/.test(whatsappValue)) {
+                    alert('Nomor WhatsApp harus berupa angka saja tanpa karakter lain!');
+                    whatsappInput.focus();
+                    return;
+                }
+
+                if (whatsappValue.length < 10 || whatsappValue.length > 15) {
+                    alert('Nomor WhatsApp harus antara 10-15 digit!');
+                    whatsappInput.focus();
+                    return;
+                }
+
+                if (!address || address.length < 1) {
+                    alert('Alamat pengantaran harus diisi!');
+                    addressInput.focus();
+                    return;
+                }
+
+                if (!payment) {
+                    alert('Silakan pilih metode pembayaran!');
+                    paymentInput.focus();
+                    return;
+                }
+
+                const formData = {
+                    name: name,
+                    whatsapp: whatsappValue,
+                    address: address,
+                    notes: document.getElementById('notes').value.trim(),
+                    payment: payment
+                };
+    
+                // Send WhatsApp message (this will handle success/error messages)
+                sendWhatsAppMessage(formData);
+    
+                // Redirect after a delay to allow user to see the success message
+                setTimeout(() => {
+                    window.location.href = 'index.html';
+                }, 3000);
+            } catch (error) {
+                console.error('Error processing checkout form:', error);
+                alert('Terjadi kesalahan saat memproses pesanan. Silakan coba lagi.');
             }
-            
-            if (whatsappValue.length < 10 || whatsappValue.length > 15) {
-                alert('Nomor WhatsApp harus antara 10-15 digit!');
-                return;
-            }
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                whatsapp: whatsappValue,
-                address: document.getElementById('address').value,
-                notes: document.getElementById('notes').value,
-                payment: document.getElementById('payment').value
-            };
-            sendWhatsAppMessage(formData);
-            alert('Pesanan telah dikirim via WhatsApp. Terima kasih!');
-            window.location.href = 'index.html';
         });
     }
 
@@ -322,14 +531,16 @@ document.addEventListener('DOMContentLoaded', function() {
     updateCartDisplay();
 });
 
-// Function to show add to cart message
-function showAddToCartMessage(itemName) {
+// Function to show add to cart message with improved accessibility
+function showAddToCartMessage(messageText, isError = false) {
     const message = document.createElement('div');
+    message.setAttribute('role', 'alert');
+    message.setAttribute('aria-live', 'assertive');
     message.style.cssText = `
         position: fixed;
         top: 20px;
         right: 20px;
-        background: linear-gradient(135deg, #4CAF50, #45a049);
+        background: ${isError ? 'linear-gradient(135deg, #ff4444, #cc0000)' : 'linear-gradient(135deg, #ffbf00, #45a049)'};
         color: white;
         padding: 15px 20px;
         border-radius: 25px;
@@ -339,11 +550,17 @@ function showAddToCartMessage(itemName) {
         transform: translateX(100%);
         transition: transform 0.3s ease;
         border: 2px solid #FFF;
+        max-width: 300px;
+        word-wrap: break-word;
     `;
-    message.textContent = `✅ ${itemName} ditambahkan ke keranjang!`;
+    message.textContent = messageText;
     document.body.appendChild(message);
-    
+
     setTimeout(() => message.style.transform = 'translateX(0)', 100);
     setTimeout(() => message.style.transform = 'translateX(100%)', 2500);
-    setTimeout(() => document.body.removeChild(message), 3000);
+    setTimeout(() => {
+        if (message.parentNode) {
+            document.body.removeChild(message);
+        }
+    }, 3000);
 }
