@@ -189,7 +189,7 @@ function generateWhatsAppMessage(formData) {
 // Function to send WhatsApp message
 function sendWhatsAppMessage(formData) {
     const message = generateWhatsAppMessage(formData);
-    const whatsappUrl = `https://wa.me/6282334157792?text=${message}`;
+    const whatsappUrl = `https://wa.me/6285608934919?text=${message}`;
     window.open(whatsappUrl, '_blank');
     
     // Clear cart after sending order
