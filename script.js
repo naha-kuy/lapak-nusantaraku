@@ -181,9 +181,8 @@ function generateWhatsAppMessage(formData) {
     });
 
     // Create the message with proper URL encoding
-    let rawMessage = `*Halo kak ${formData.name}!* Terima kasih banyak sudah pesan di Lapak Nusantara! Pesanan kamu sudah kami catat dengan semangat. \n\nBerikut rincian pesanan yang akan kami siapkan:\n--------------------------------------------------\n> *DETAIL PESANAN*\n${itemList}--------------------------------------------------\n*TOTAL AKHIR:* Rp ${total.toLocaleString('id-ID')}\n--------------------------------------------------\n\n> *INFO PENGIRIMAN*\nNama: ${formData.name}\nNomor WA: ${formData.whatsapp}\nAlamat: ${formData.address}\nMetode Bayar: *${formData.payment}*\nCatatan Khusus: ${formData.notes || 'Tidak ada'}\n\nMohon ditunggu sebentar ya Kak, kami sedang menyiapkan hidangan terbaik untukmu. Kami akan segera konfirmasi setelah pesanan siap dijemput/dikirim!\n--------------------------------------------------\n*Citarasa Lokal, Yang Tak Terlupakan!*`;
-
-    let encodedMessage = encodeURIComponent(rawMessage);
+    let message = `*Halo kak ${formData.name}!* Terima kasih banyak sudah pesan di Lapak Nusantara! Pesanan kamu sudah kami catat dengan semangat. %0A%0ABerikut rincian pesanan yang akan kami siapkan:%0A--------------------------------------------------%0A> *DETAIL PESANAN*%0A${itemList}--------------------------------------------------%0A*TOTAL AKHIR:* Rp ${total.toLocaleString('id-ID')}%0A--------------------------------------------------%0A%0A> *INFO PENGIRIMAN*%0ANama: ${formData.name}%0ANomor WA: ${formData.whatsapp}%0AAlamat: ${formData.address}%0AMetode Bayar: *${formData.payment}*%0ACatatan Khusus: ${formData.notes || 'Tidak ada'}%0A%0AMohon ditunggu sebentar ya Kak, kami sedang menyiapkan hidangan terbaik untukmu. Kami akan segera konfirmasi setelah pesanan siap dijemput/dikirim!%0A--------------------------------------------------%0A*Citarasa Lokal, Yang Tak Terlupakan!*`
+    
     return message;
 }
 
