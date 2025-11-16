@@ -339,7 +339,7 @@ function sendWhatsAppMessage(formData) {
         }
 
         // Use proper URL encoding for WhatsApp
-        const whatsappUrl = `https://wa.me/6285608934919?text=${encodeURIComponent(message)}`;
+        const whatsappUrl = `https://wa.me/6282334157792?text=${encodeURIComponent(message)}`;
 
         console.log('Generated WhatsApp URL:', whatsappUrl); // For debugging
 
